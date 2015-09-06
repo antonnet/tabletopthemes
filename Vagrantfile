@@ -22,18 +22,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", inline: $shell
 
-  $shell = <<-CONTENTS
-  sudo apt-get update
-  sudo apt-get install git
-  cd /vagrant
-  git pull
-  sudo apt-get install -y python-pip python-virtualenv python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
-  virtualenv --system-site-packages env
-  source ./env/local/bin/activate
-  pip install gensim
-  CONTENTS
-
-
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -89,3 +77,15 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 end
+
+$shell = <<-CONTENTS
+sudo apt-get update
+sudo apt-get install -y git
+cd /vagrant
+git pull
+sudo apt-get install -y python-pip python-virtualenv python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+[ -e /tmp/env/local/bin/pip ] || virtualenv --system-site-packages /tmp/env
+. /tmp/env/local/bin/activate
+echo ". /tmp/env/local/bin/activate" >> ~/.bashrc
+pip install -r requirements.txt
+CONTENTS
