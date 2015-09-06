@@ -16,6 +16,10 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "tabletopthemes"
   config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
+  config.vm.provider :virtualbox do |vb|
+    vb.gui = true
+  end
+
   $shell = <<-CONTENTS
   sudo apt-get update
   sudo apt-get install git
