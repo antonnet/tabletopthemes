@@ -28,8 +28,8 @@ for text in texts:
 texts = [[token for token in text if frequency[token] > 1]
         for text in texts]
 
-# from pprint import pprint   # pretty-printer
-# pprint(texts)
+from pprint import pprint   # pretty-printer
+pprint(texts)
 
 # class MyCorpus(object):
     # def __iter__(self):
