@@ -20,6 +20,8 @@ Vagrant.configure(2) do |config|
     vb.gui = true
   end
 
+  config.vm.provision "shell", inline: $shell
+
   $shell = <<-CONTENTS
   sudo apt-get update
   sudo apt-get install git
