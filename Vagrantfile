@@ -12,7 +12,21 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "base"
+  config.vm.box = "hashicorp/precise64"
+  config.vm.hostname = "tabletopthemes"
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
+  $shell = <<-CONTENTS
+  sudo apt-get update
+  sudo apt-get install git
+  cd /vagrant
+  git pull
+  sudo apt-get install -y python-pip python-virtualenv python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+  virtualenv --system-site-packages env
+  source ./env/local/bin/activate
+  pip install gensim
+  CONTENTS
+
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
